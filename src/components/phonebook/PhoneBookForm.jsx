@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import css from './PhoneBookForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+// import { addContactAction } from 'components/actions';
+import { addContact } from 'redux/store';
 
 export function PhoneBookForm({ addToContact }) {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
 
   const state = useSelector(state => state);
-  console.log(state);
+
   const dispatch = useDispatch();
 
   const handlerChenge = event => {
@@ -35,13 +37,16 @@ export function PhoneBookForm({ addToContact }) {
       return;
     }
 
-    dispatch({
-      type: 'contact/addContact',
-      payload: { id: nanoid(8), name: contactName, number: contactNumber },
-    });
+    dispatch(
+      addContact({ id: nanoid(8), name: contactName, number: contactNumber })
+   
+    )
+    ;
 
     clearForm();
   };
+
+
 
   return (
     <div>
